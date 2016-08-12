@@ -18,6 +18,8 @@ public class Main {
             plugin.doUsefull();
             ShowLine();
         }
+        Plugin plugin = pluginManager.load("", "ru.vladpap.plugins.ShowHelloEncrypted");
+        plugin.doUsefull();
     }
 
     private static void ShowLine() {

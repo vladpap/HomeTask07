@@ -4,13 +4,10 @@ import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.HashMap;
-import java.util.Map;
 
 public class PluginManager {
 
     private final String pluginRootDirectory;
-    private static Map<String, Plugin> uploadPlugins = new HashMap<>();
 
     public PluginManager(String pluginRootDirectory) {
         this.pluginRootDirectory = pluginRootDirectory;
