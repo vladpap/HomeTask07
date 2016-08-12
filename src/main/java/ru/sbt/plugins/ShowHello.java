@@ -1,5 +1,6 @@
 package ru.sbt.plugins;
 
+import ru.papin.model.Person;
 import ru.sbt.plugin.Plugin;
 
 import java.util.Scanner;
@@ -7,10 +8,10 @@ import java.util.Scanner;
 public class ShowHello implements Plugin {
     @Override
     public void doUsefull() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your name : ");
-        String name = scanner.nextLine();
-        System.out.println("Hello " + name + " ...\r\n");
-
+        Person person = new Person("Ivan", 26);
+        System.out.println("Hello " + person.getName() + " ...");
+        System.out.println(person);
+        System.out.println(this.getClass().getName());
+        System.out.println(person.getClass().getName() + " " + person.getClass().getClassLoader());
     }
 }

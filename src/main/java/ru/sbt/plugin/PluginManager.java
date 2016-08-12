@@ -1,26 +1,43 @@
 package ru.sbt.plugin;
-import java.net.URLClassLoader;
 
-public class PluginManager { //extends URLClassLoader {
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.util.HashMap;
+import java.util.Map;
+
+public class PluginManager {
 
     private final String pluginRootDirectory;
+    private static Map<String, Plugin> uploadPlugins = new HashMap<>();
 
     public PluginManager(String pluginRootDirectory) {
         this.pluginRootDirectory = pluginRootDirectory;
     }
 
-/*    public Plugin load(String pluginName, String pluginClassName) {
+    public Plugin load(String pluginName, String pluginClassName) {
 
-        //todo
-        return new Plugin;
-    }*/
+        URL url;
+        Plugin result;
 
-/*    @Override
-    public Class<?> loadClass(String name) throws ClassNotFoundException {
-        if (name.startsWith("java") || name.equals("ru.sbt.plugin.Plugin")) {
-            return super.loadClass(name);
+        try {
+            url = new File(pluginRootDirectory).toURI().toURL();
+        } catch (MalformedURLException e) {
+            throw new PluginManagerException("Error url", e);
         }
-        return findClass(name);
+
+        URLClassLoader loader = new PluginClassLoader(new URL[]{url});
+        Class<?> clazz;
+
+        try {
+            clazz = loader.loadClass(pluginClassName);
+            result = (Plugin) clazz.newInstance();
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+            throw new PluginManagerException("Error", e);
+        }
+
+        return result;
     }
-*/
+
 }
