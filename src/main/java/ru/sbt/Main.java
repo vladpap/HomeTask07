@@ -13,12 +13,13 @@ public class Main {
         listPlugin.add("ru.sbt.plugins.MultiplicationTable");
         listPlugin.add("ru.sbt.plugins.ShowHello");
         listPlugin.add("ru.vladpap.plugins.ShowHello");
+        listPlugin.add("ru.vladpap.plugins.ShowHelloEncrypted");
         for (String s : listPlugin) {
-            Plugin plugin = pluginManager.load("", s);
-            plugin.doUsefull();
+//            Plugin plugin = pluginManager.load("", s);
+//            plugin.doUsefull();
             ShowLine();
         }
-        Plugin plugin = pluginManager.load("", "ru.vladpap.plugins.ShowHelloEncrypted");
+        Plugin plugin = pluginManager.loadEncripted("ru.vladpap.plugins.ShowHelloEncrypted", "vladpap");
         plugin.doUsefull();
     }
 

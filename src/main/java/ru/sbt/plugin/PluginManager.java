@@ -13,6 +13,23 @@ public class PluginManager {
         this.pluginRootDirectory = pluginRootDirectory;
     }
 
+    public Plugin loadEncripted(String pluginClassName, String key) {
+        Plugin result;
+        ClassLoader loader = new PluginEncriptClassLoader(pluginRootDirectory, key);
+        Class<?> clazz;
+        try {
+            clazz = loader.loadClass(pluginClassName);
+        } catch (ClassNotFoundException e) {
+            throw new PluginManagerException("Error", e);
+        }
+        try {
+            result = (Plugin) clazz.newInstance();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new PluginManagerException("Error", e);
+        }
+        return result;
+    }
+
     public Plugin load(String pluginName, String pluginClassName) {
 
         URL url;
